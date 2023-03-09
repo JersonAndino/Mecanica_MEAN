@@ -1,0 +1,23 @@
+<div>
+    <form #tipoForm="ngForm" (ngSubmit)="guardarParte()">
+        <div>
+            <span>Nombre: </span>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="parte.nombre">
+        </div>
+        <div>
+            <span>Marca: </span>
+            <input type="text" name="marca" #marca="ngModel" [(ngModel)]="parte.marca">
+        </div>
+        <div>
+            <span>Modelo: </span>
+            <input type="text" name="modelo" #modelo="ngModel" [(ngModel)]="parte.modelo">
+        </div>
+        <div>
+            <span>Precio: </span>
+            <input type="number" name="precio" #precio="ngModel" [(ngModel)]="parte.precio">
+        </div>
+        <div>
+            <input type="submit" [disabled]="!tipoForm.form.valid" value="GUARDAR">
+        </div>
+    </form>
+</div>

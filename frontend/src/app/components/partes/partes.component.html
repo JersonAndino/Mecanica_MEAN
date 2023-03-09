@@ -1,0 +1,11 @@
+<div>
+    <div *ngFor="let parte of partes">
+        <a [routerLink]="['/partes',parte._id]">
+            <div>
+                <h1>Nombre: {{parte.nombre}}</h1>
+                <h3>Modelo: {{parte.modelo}}</h3>
+                <h3>Precio: {{parte.precio}}</h3>
+            </div>
+        </a>
+    </div>
+</div>
