@@ -6,7 +6,8 @@ var parteSchema=Schema({
     nombre:String,
     marca:String,
     modelo:String,
-    precio:Number
+    precio:Number,
+    imagen:String
 });
 
 module.exports=mongoose.model('Parte',parteSchema);

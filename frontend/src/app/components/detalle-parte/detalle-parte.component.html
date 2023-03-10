@@ -1,1 +1,47 @@
-<p>detalle-parte works!</p>
+<div style="min-height:450px">
+    <div class="row">
+    <div class="col-md-6">
+        <div *ngFor="let parte of partes" class="parte-box">
+            <a [routerLink]="['/partes',parte._id]">
+                <div>
+                    <h1>Nombre: {{parte.nombre}}</h1>
+                    <h3>Modelo: {{parte.modelo}}</h3>
+                    <h3>Precio: {{parte.precio}}</h3>
+                    <img src="{{url+'get-imagen/'+parte.imagen}}" *ngIf="parte.imagen">
+                </div>
+            </a>
+        </div>
+    </div>
+        <div class="col-md-6">
+            <form #parteForm="ngForm" (ngSubmit)="actualizarPartePorId(parteForm)">
+                <div>
+                    <span>Nombre: </span>
+                    <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="parte.nombre">
+                </div>
+                <div>
+                    <span>Marca: </span>
+                    <input type="text" name="marca" #marca="ngModel" [(ngModel)]="parte.marca">
+                </div>
+                <div>
+                    <span>Modelo: </span>
+                    <input type="text" name="modelo" #modelo="ngModel" [(ngModel)]="parte.modelo">
+                </div>
+                <div>
+                    <span>Precio: </span>
+                    <input type="number" name="precio" #precio="ngModel" [(ngModel)]="parte.precio">
+                </div>
+                <div>
+                    <span>Imagen: </span>
+                    <span *ngIf="parte.imagen" style="float:none;">
+                        <img src="{{url+'get-imagen/'+parte.imagen}}" style="width:100px;" alt="">
+                    </span>
+                    <input type="file" #archivoImagen placeholder="Seleccionar imagen" (change)="imagenChangeEvent($event);">            
+                </div>
+                <div>
+                    <input type="submit" [disabled]="!parteForm.form.valid" value="GUARDAR">
+                </div>
+            </form>
+            <button class="btn btn-primary" (click)="eliminarPartePorId()">ELIMINAR</button>
+        </div>
+    </div>
+</div>

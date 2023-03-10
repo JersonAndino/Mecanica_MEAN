@@ -4,6 +4,7 @@ export class Parte{
         public nombre:string,
         public marca:string,
         public modelo:string,
-        public precio:number
+        public precio:number,
+        public imagen:string
     ){}
 }

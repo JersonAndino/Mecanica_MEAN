@@ -40,4 +40,9 @@ export class ParteService{
         let headers=new HttpHeaders().set('Content-Type','application/json');
         return this._http.put(this.url+'parte',params,{headers:headers});
     }
+    getPartePorId(id:String):Observable<any>{
+        //let params=JSON.stringify(id);
+        let headers=new HttpHeaders().set('Content-Type','application/json');
+        return this._http.get(this.url+'parte/'+id,{headers:headers});
+    }
 }

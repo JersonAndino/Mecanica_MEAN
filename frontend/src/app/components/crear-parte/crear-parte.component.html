@@ -1,5 +1,5 @@
-<div>
-    <form #tipoForm="ngForm" (ngSubmit)="guardarParte()">
+<div style="min-height:450px;">
+    <form #parteForm="ngForm" (ngSubmit)="guardarParte(parteForm)">
         <div>
             <span>Nombre: </span>
             <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="parte.nombre">
@@ -17,7 +17,14 @@
             <input type="number" name="precio" #precio="ngModel" [(ngModel)]="parte.precio">
         </div>
         <div>
-            <input type="submit" [disabled]="!tipoForm.form.valid" value="GUARDAR">
+            <span>Imagen: </span>
+            <span *ngIf="parte.imagen" style="float:none;">
+                <img src="{{url+'get-imagen/'+parte.imagen}}" style="width:100px;" alt="">
+            </span>
+            <input type="file" #archivoImagen placeholder="Seleccionar imagen" (change)="imagenChangeEvent($event);">            
+        </div>
+        <div>
+            <input type="submit" [disabled]="!parteForm.form.valid" value="GUARDAR">
         </div>
     </form>
 </div>

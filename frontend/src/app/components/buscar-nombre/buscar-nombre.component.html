@@ -1,5 +1,8 @@
-<div style="min-height:450px">
-    <div *ngFor="let parte of partes"  class="parte-box">
+<div style="min-height: 450px;">
+    <div *ngIf="partes.length<1">
+        NO SE ENCONTRARON REGISTROS CON EL NOMBRE "{{nombre}}"
+    </div>
+    <div *ngFor="let parte of partes" class="parte-box">
         <a [routerLink]="['/partes',parte._id]">
             <div>
                 <h1>Nombre: {{parte.nombre}}</h1>

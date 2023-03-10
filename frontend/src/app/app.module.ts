@@ -8,13 +8,21 @@ import { AppComponent } from './app.component';
 import { CrearParteComponent } from './components/crear-parte/crear-parte.component';
 import { PartesComponent } from './components/partes/partes.component';
 import { DetalleParteComponent } from './components/detalle-parte/detalle-parte.component';
+import { BuscarNombreComponent } from './components/buscar-nombre/buscar-nombre.component';
+import { ContactoComponent } from './components/contacto/contacto.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CrearParteComponent,
     PartesComponent,
-    DetalleParteComponent
+    DetalleParteComponent,
+    BuscarNombreComponent,
+    ContactoComponent,
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

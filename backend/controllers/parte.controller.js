@@ -11,8 +11,9 @@ var controller={
         parte.marca=req.body.marca;
         parte.modelo=req.body.modelo;
         parte.precio=req.body.precio;
+        parte.imagen=null;
         //console.log(parte);
-        Parte.findOne({marca:parte.marca,modelo:parte.modelo})
+        Parte.findOne({nombre:parte.nombre,marca:parte.marca,modelo:parte.modelo})
         .then(result => {
             if (!result){
                 parte.save()
@@ -32,6 +33,17 @@ var controller={
         });
         
         
+    },
+    obtenerPartePorId:function(req,res){
+        var idBuscar=req.params.id;
+        Parte.findById(idBuscar)
+        .then(result => {
+            if (!result) return res.status(404).send({message:'No se encontraron datos con los valores proporcionados'});
+            return res.status(200).send({result});
+        })
+        .catch(err => {
+            console.log(err);
+        });
     },
     obtenerPartesPorNombre:function(req,res){
         var nombreBuscar=req.params.nombre;
@@ -67,10 +79,7 @@ var controller={
     },
     actualizarPartePorId:function(req,res){
         var idBuscar=req.body._id;
-        var parte;
-        parte.marca=req.body.marca;
-        parte.modelo=req.body.modelo;
-        parte.precio=req.body.precio;
+        var parte = new Parte(req.body);
         Parte.findByIdAndUpdate(idBuscar,parte,{new:true})
         .then(result => {
             if (!result) return res.status(404).send({message:'No se han podido actualizar los datos'});
@@ -90,6 +99,45 @@ var controller={
         .catch(err => {
             console.log(err);
         });
+    },
+    uploadImage:function(req,res){
+        var idParte=req.params.id;
+        var fileName='Imagen no subida';
+
+        if(req.files){
+            var filePath=req.files.imagen.path;
+            var file_split=filePath.split('\\');
+            var fileName=file_split[1];
+            var extSplit=fileName.split('\.');
+            var fileExt=extSplit[1];
+            if(fileExt=='png'||fileExt=='jpg'||fileExt=='jpeg'||fileExt=='gif'){
+                Parte.findByIdAndUpdate(idParte,{imagen:fileName},{new:true})
+                .then(result => {
+                    if (!result) return res.status(404).send({message:'No se pueden actualizar los datos'});
+                    return res.status(200).send({result});
+                })
+                .catch(err => {
+                    return res.status(200).send({message:'Error al actualizar los datos'});
+                });
+            }else{
+                fs.unlink(filePath,(err)=>{
+                    return res.status(200).send({message:'La extension no es valida'});
+                });
+            }
+        }else{
+            return res.status(200).send({message:fileName});
+        }
+    },
+    getImage:function(req,res){
+        var file=req.params.imagen;
+        var path_file="./uploads/"+file;
+        fs.exists(path_file,(exists)=>{
+            if (exists){
+                return  res.sendFile(path.resolve(path_file));
+            }else{
+                res.status(200).send({message:"La imagen no existe"});
+            }
+        })
     }
 }
 
